@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		746C8D4F204D3F1900FFAFB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */; };
 		74C18ED5204A449800362809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED4204A449800362809 /* AppDelegate.swift */; };
-		74C18ED7204A449800362809 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* ViewController.swift */; };
+		74C18ED7204A449800362809 /* SessionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* SessionsController.swift */; };
 		74C18EDA204A449800362809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18ED8204A449800362809 /* Main.storyboard */; };
 		74C18EDC204A449800362809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C18EDB204A449800362809 /* Assets.xcassets */; };
 		74C18EDF204A449800362809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18EDD204A449800362809 /* LaunchScreen.storyboard */; };
+		74C18EE7204A47EF00362809 /* SessionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE6204A47EF00362809 /* SessionsCell.swift */; };
+		74C18EE9204A484F00362809 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE8204A484F00362809 /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74C18ED1204A449800362809 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C18ED4204A449800362809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74C18ED6204A449800362809 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		74C18ED6204A449800362809 /* SessionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsController.swift; sourceTree = "<group>"; };
 		74C18ED9204A449800362809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74C18EDB204A449800362809 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74C18EDE204A449800362809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74C18EE0204A449800362809 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74C18EE6204A47EF00362809 /* SessionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsCell.swift; sourceTree = "<group>"; };
+		74C18EE8204A484F00362809 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +61,14 @@
 			isa = PBXGroup;
 			children = (
 				74C18ED4204A449800362809 /* AppDelegate.swift */,
-				74C18ED6204A449800362809 /* ViewController.swift */,
+				74C18EE8204A484F00362809 /* Session.swift */,
+				74C18ED6204A449800362809 /* SessionsController.swift */,
+				74C18EE6204A47EF00362809 /* SessionsCell.swift */,
 				74C18ED8204A449800362809 /* Main.storyboard */,
 				74C18EDB204A449800362809 /* Assets.xcassets */,
 				74C18EDD204A449800362809 /* LaunchScreen.storyboard */,
 				74C18EE0204A449800362809 /* Info.plist */,
+				746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -124,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74C18EDF204A449800362809 /* LaunchScreen.storyboard in Resources */,
+				746C8D4F204D3F1900FFAFB9 /* GoogleService-Info.plist in Resources */,
 				74C18EDC204A449800362809 /* Assets.xcassets in Resources */,
 				74C18EDA204A449800362809 /* Main.storyboard in Resources */,
 			);
@@ -136,7 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74C18ED7204A449800362809 /* ViewController.swift in Sources */,
+				74C18EE9204A484F00362809 /* Session.swift in Sources */,
+				74C18EE7204A47EF00362809 /* SessionsCell.swift in Sources */,
+				74C18ED7204A449800362809 /* SessionsController.swift in Sources */,
 				74C18ED5204A449800362809 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -275,8 +287,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8P422Q4556;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = Questions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jameslim.Questions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,8 +303,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8P422Q4556;
+				DEVELOPMENT_TEAM = 7K6ZTDFM48;
 				INFOPLIST_FILE = Questions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jameslim.Questions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
