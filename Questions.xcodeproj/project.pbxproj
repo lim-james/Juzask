@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7452BDB5204D8AF5007A50BB /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452BDB4204D8AF5007A50BB /* RootController.swift */; };
 		746C8D4F204D3F1900FFAFB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */; };
 		74C18ED5204A449800362809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED4204A449800362809 /* AppDelegate.swift */; };
-		74C18ED7204A449800362809 /* SessionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* SessionsController.swift */; };
+		74C18ED7204A449800362809 /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* RoomsController.swift */; };
 		74C18EDA204A449800362809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18ED8204A449800362809 /* Main.storyboard */; };
 		74C18EDC204A449800362809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C18EDB204A449800362809 /* Assets.xcassets */; };
 		74C18EDF204A449800362809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18EDD204A449800362809 /* LaunchScreen.storyboard */; };
-		74C18EE7204A47EF00362809 /* SessionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE6204A47EF00362809 /* SessionsCell.swift */; };
-		74C18EE9204A484F00362809 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE8204A484F00362809 /* Session.swift */; };
+		74C18EE7204A47EF00362809 /* RoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE6204A47EF00362809 /* RoomsCell.swift */; };
+		74C18EE9204A484F00362809 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18EE8204A484F00362809 /* Room.swift */; };
 		BB6F909D7CA0F68513CE1F2A /* Pods_Questions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C070B5DC20EF9A0CDD4D3E8 /* Pods_Questions.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,16 +23,17 @@
 		0C070B5DC20EF9A0CDD4D3E8 /* Pods_Questions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Questions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12FF41DA50FE7254C759B645 /* Pods-Questions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Questions.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Questions/Pods-Questions.debug.xcconfig"; sourceTree = "<group>"; };
 		4A91845276A1E10C384F32A6 /* Pods-Questions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Questions.release.xcconfig"; path = "Pods/Target Support Files/Pods-Questions/Pods-Questions.release.xcconfig"; sourceTree = "<group>"; };
+		7452BDB4204D8AF5007A50BB /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74C18ED1204A449800362809 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C18ED4204A449800362809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74C18ED6204A449800362809 /* SessionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsController.swift; sourceTree = "<group>"; };
+		74C18ED6204A449800362809 /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
 		74C18ED9204A449800362809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74C18EDB204A449800362809 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74C18EDE204A449800362809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74C18EE0204A449800362809 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74C18EE6204A47EF00362809 /* SessionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsCell.swift; sourceTree = "<group>"; };
-		74C18EE8204A484F00362809 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		74C18EE6204A47EF00362809 /* RoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsCell.swift; sourceTree = "<group>"; };
+		74C18EE8204A484F00362809 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +70,10 @@
 			isa = PBXGroup;
 			children = (
 				74C18ED4204A449800362809 /* AppDelegate.swift */,
-				74C18EE8204A484F00362809 /* Session.swift */,
-				74C18ED6204A449800362809 /* SessionsController.swift */,
-				74C18EE6204A47EF00362809 /* SessionsCell.swift */,
+				7452BDB4204D8AF5007A50BB /* RootController.swift */,
+				74C18EE8204A484F00362809 /* Room.swift */,
+				74C18ED6204A449800362809 /* RoomsController.swift */,
+				74C18EE6204A47EF00362809 /* RoomsCell.swift */,
 				74C18ED8204A449800362809 /* Main.storyboard */,
 				74C18EDB204A449800362809 /* Assets.xcassets */,
 				74C18EDD204A449800362809 /* LaunchScreen.storyboard */,
@@ -231,9 +234,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74C18EE9204A484F00362809 /* Session.swift in Sources */,
-				74C18EE7204A47EF00362809 /* SessionsCell.swift in Sources */,
-				74C18ED7204A449800362809 /* SessionsController.swift in Sources */,
+				7452BDB5204D8AF5007A50BB /* RootController.swift in Sources */,
+				74C18EE9204A484F00362809 /* Room.swift in Sources */,
+				74C18EE7204A47EF00362809 /* RoomsCell.swift in Sources */,
+				74C18ED7204A449800362809 /* RoomsController.swift in Sources */,
 				74C18ED5204A449800362809 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

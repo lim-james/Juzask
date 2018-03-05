@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
-class SessionsController: UITableViewController, UISearchResultsUpdating {
-
-    var sessions: [Session] = []
+class RoomsController: UITableViewController, UISearchResultsUpdating {
+    
+    var ref: DatabaseReference!
+    
+    var rooms: [Room] = []
     
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
+        
         populate()
         
         if #available(iOS 11.0, *) {
@@ -30,11 +36,15 @@ class SessionsController: UITableViewController, UISearchResultsUpdating {
     }
     
     func populate() {
-        sessions.append(Session(title: "Math", admin: "Chen Jin Quan", code: "09Ab"))
-        sessions.append(Session(title: "Math", admin: "Chen Jin Quan", code: "09Ab"))
-        sessions.append(Session(title: "Math", admin: "Chen Jin Quan", code: "09Ab"))
-        sessions.append(Session(title: "Math", admin: "Chen Jin Quan", code: "09Ab"))
-        sessions.append(Session(title: "Math", admin: "Chen Jin Quan", code: "09Ab"))
+        ref.child("Rooms").observe(.value) { snapshot in
+            self.rooms.removeAll()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let dict = snap.value as! [String: String]
+                self.rooms.append(Room(from: dict))
+                DispatchQueue.main.async { self.tableView.reloadData() }
+            }
+        }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -46,16 +56,19 @@ class SessionsController: UITableViewController, UISearchResultsUpdating {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sessions.count
+        return rooms.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SessionsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! RoomsCell
         
-        cell.session = sessions[indexPath.row]
+        cell.session = rooms[indexPath.row]
         
         return cell
     }
     
+    @IBAction func addRoomAction(_ sender: Any) {
+        Room(title: "James", admin: "admin").create()
+    }
 }
 

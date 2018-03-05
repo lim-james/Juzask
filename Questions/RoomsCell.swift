@@ -8,13 +8,13 @@
 
 import UIKit
 
-class SessionsCell: UITableViewCell {
+class RoomsCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var adminLabel: UILabel!
     @IBOutlet weak var codeLabel: UILabel!
     
-    var session: Session! {
+    var session: Room! {
         didSet {
             titleLabel.text = session.title
             adminLabel.text = session.admin
