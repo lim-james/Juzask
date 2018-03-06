@@ -14,11 +14,11 @@ class RoomsCell: UITableViewCell {
     @IBOutlet weak var adminLabel: UILabel!
     @IBOutlet weak var codeLabel: UILabel!
     
-    var session: Room! {
+    var room: Room! {
         didSet {
-            titleLabel.text = session.title
-            adminLabel.text = session.admin
-            codeLabel.text = session.code
+            titleLabel.text = room.title
+            adminLabel.text = room.admin
+            codeLabel.text = room.code
             
             titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
         }

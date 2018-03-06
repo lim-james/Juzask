@@ -11,6 +11,7 @@
 		7409FF88204E629300A0B91C /* QuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7409FF87204E629300A0B91C /* QuestionsCell.swift */; };
 		745C238E204E5F1C00172517 /* QuestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745C238D204E5F1C00172517 /* QuestionsController.swift */; };
 		746C8D4F204D3F1900FFAFB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */; };
+		747742A7204E996A0079A546 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747742A6204E996A0079A546 /* StringExtension.swift */; };
 		74C18ED5204A449800362809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED4204A449800362809 /* AppDelegate.swift */; };
 		74C18ED7204A449800362809 /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* RoomsController.swift */; };
 		74C18EDA204A449800362809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18ED8204A449800362809 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 		7409FF87204E629300A0B91C /* QuestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCell.swift; sourceTree = "<group>"; };
 		745C238D204E5F1C00172517 /* QuestionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsController.swift; sourceTree = "<group>"; };
 		746C8D4E204D3F1900FFAFB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		747742A6204E996A0079A546 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		74C18ED1204A449800362809 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C18ED4204A449800362809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C18ED6204A449800362809 /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				74C18ED4204A449800362809 /* AppDelegate.swift */,
+				747742A6204E996A0079A546 /* StringExtension.swift */,
 				74C18EE8204A484F00362809 /* Room.swift */,
 				74C18EE6204A47EF00362809 /* RoomsCell.swift */,
 				74C18ED6204A449800362809 /* RoomsController.swift */,
@@ -251,6 +254,7 @@
 				74C18EE7204A47EF00362809 /* RoomsCell.swift in Sources */,
 				74C18ED7204A449800362809 /* RoomsController.swift in Sources */,
 				7409FF88204E629300A0B91C /* QuestionsCell.swift in Sources */,
+				747742A7204E996A0079A546 /* StringExtension.swift in Sources */,
 				7409FF86204E627C00A0B91C /* Question.swift in Sources */,
 				74C18ED5204A449800362809 /* AppDelegate.swift in Sources */,
 				745C238E204E5F1C00172517 /* QuestionsController.swift in Sources */,

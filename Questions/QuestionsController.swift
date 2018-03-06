@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
-class QuestionsController: UITableViewController, UISearchResultsUpdating {
+class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSignInUIDelegate {
     
     var ref: DatabaseReference!
     
@@ -20,6 +21,8 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        GIDSignIn.sharedInstance().uiDelegate = self
+        
         ref = Database.database().reference()
         
         populate()
@@ -58,25 +61,42 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating {
     }
     
     @objc func askAction() {
-        let alertController = UIAlertController(title: "Enter question", message: nil, preferredStyle: .alert)
-        
-        let confirmAction = UIAlertAction(title: "Ask", style: .default) { (_) in
-            let field = alertController.textFields![0]
-            if !(field.text?.isEmpty)! {
-                Question(room: self.room, title: field.text!, admin: "James").create()
+        if GIDSignIn.sharedInstance().currentUser != nil {
+            let alertController = UIAlertController(title: "Enter question", message: nil, preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "Ask", style: .default) { (_) in
+                let field = alertController.textFields![0]
+                if !(field.text?.isEmpty)! {
+                    Question(room: self.room, title: field.text!, admin: GIDSignIn.sharedInstance().currentUser.profile.name).create()
+                }
             }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addTextField { textField in
+                textField.textAlignment = .center
+                textField.returnKeyType = .done
+                textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+            }
+            
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: "Log in to continue", message: nil, preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+                GIDSignIn.sharedInstance().signIn()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Nope", style: .cancel, handler: nil)
+            
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addTextField { (textField) in
-            textField.textAlignment = .center
-        }
-        
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
