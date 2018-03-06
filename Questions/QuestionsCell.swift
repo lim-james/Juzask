@@ -1,24 +1,22 @@
 //
-//  SessionsCell.swift
+//  QuestionCell.swift
 //  Questions
 //
-//  Created by James on 3/3/18.
+//  Created by James on 6/3/18.
 //  Copyright © 2018 james. All rights reserved.
 //
 
 import UIKit
 
-class RoomsCell: UITableViewCell {
+class QuestionsCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var adminLabel: UILabel!
-    @IBOutlet weak var codeLabel: UILabel!
     
-    var session: Room! {
+    var question: Question! {
         didSet {
-            titleLabel.text = session.title
-            adminLabel.text = session.admin
-            codeLabel.text = session.code
+            titleLabel.text = question.title
+            adminLabel.text = question.admin
             
             titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
         }

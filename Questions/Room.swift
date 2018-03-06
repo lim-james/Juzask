@@ -20,6 +20,12 @@ class Room {
         self.code = getCode()
     }
     
+    init(title: String, admin: String, code: String) {
+        self.title = title
+        self.admin = admin
+        self.code = code
+    }
+    
     init(from dict: [String: String]) {
         self.title = dict["title"]!
         self.admin = dict["admin"]!
