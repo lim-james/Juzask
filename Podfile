@@ -8,6 +8,7 @@ target 'Questions' do
   # Pods for Questions
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
 
 end
