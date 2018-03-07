@@ -282,6 +282,19 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         return 44
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize * 2)
+        label.textAlignment = .center
+        label.textColor = .green
+        label.text = "No rooms."
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return rooms.count == 0 ? view.frame.height - 44 : 0
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }

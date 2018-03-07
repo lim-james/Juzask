@@ -136,6 +136,20 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         }
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize * 2)
+        label.textAlignment = .center
+        label.textColor = .green
+        label.text = "No questions\nasked yet."
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return questions.count == 0 ? view.frame.height : 0
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
         let qRef = ref.child(room.code).child(question.childId)
