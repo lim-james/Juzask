@@ -39,7 +39,8 @@ class AnswersController: UITableViewController, UITextViewDelegate {
         }
         answerView.delegate = self
         answerView.font = UIFont.boldSystemFont(ofSize: (answerView.font?.pointSize)!)
-        answerView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        answerView.textContainerInset = UIEdgeInsets.zero
+        answerView.textContainer.lineFragmentPadding = 0
         answerView.isScrollEnabled = false
         if GIDSignIn.sharedInstance().currentUser != nil {
             answerView.isEditable = question.room.adminEmail == GIDSignIn.sharedInstance().currentUser.profile.email

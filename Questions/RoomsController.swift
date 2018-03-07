@@ -24,6 +24,8 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,12 +82,26 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         }
     }
     
+    func update() {
+        UserDefaults.standard.set(roomCodes, forKey: "Room Codes")
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         let text = searchController.searchBar.text!
         searchedRooms = rooms.filter { (room) -> Bool in
             return room.title.contains(text) || room.admin.contains(text) || room.code.contains(text)
         }
         reload()
+    }
+    
+    @IBAction func editAction(_ sender: Any) {
+        if tableView.isEditing {
+            editButton.title = "Edit"
+            tableView.setEditing(false, animated: true)
+        } else {
+            editButton.title = "Done"
+            tableView.setEditing(true, animated: true)
+        }
     }
     
     @objc func joinAction() {
@@ -172,7 +188,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             let room = searching ? searchedRooms[indexPath.row] : rooms[indexPath.row]
             let index = roomCodes.index(of: room.code)!
             roomCodes.remove(at: index)
-            UserDefaults.standard.set(roomCodes, forKey: "Room Codes")
+            update()
             rooms.remove(at: index)
             if searching { searchedRooms.remove(at: indexPath.row) }
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -181,6 +197,13 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = rooms[sourceIndexPath.row]
+        rooms.remove(at: sourceIndexPath.row)
+        rooms.insert(movedObject, at: destinationIndexPath.row)
+        update()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

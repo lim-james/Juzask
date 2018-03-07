@@ -72,12 +72,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Rooms" id="v6G-ak-VVF">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="Drg-RW-K3A">
+                            <connections>
+                                <action selector="editAction:" destination="hVJ-9d-uKL" id="qw2-JV-na1"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ScN-DD-qCZ">
                             <connections>
                                 <action selector="addRoomAction:" destination="hVJ-9d-uKL" id="hzt-6C-Twb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="Drg-RW-K3A" id="ohw-Gw-v5J"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xq4-aT-a6P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
