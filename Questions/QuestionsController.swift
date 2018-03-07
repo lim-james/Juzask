@@ -148,7 +148,15 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
+            var question: Question!
+            if searching {
+                question = searchedQuestions[indexPath.row]
+                searchedQuestions.remove(at: indexPath.row)
+            } else {
+                question = questions[indexPath.row]
+                questions.remove(at: indexPath.row)
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             ref.child(room.code).child(question.childId).removeValue()
         }
     }

@@ -21,12 +21,14 @@ class QuestionsCell: UITableViewCell {
             adminLabel.text = question.admin
             supportersLabel.text = "\(question.supporters.count) supporters"
             
-            if question.supporters.contains(where: { (k, v) -> Bool in
-                return v == GIDSignIn.sharedInstance().currentUser.profile.email
-            }) {
-                accessoryType = .checkmark
-            } else {
-                accessoryType = .none
+            if GIDSignIn.sharedInstance().currentUser != nil {
+                if question.supporters.contains(where: { (k, v) -> Bool in
+                    return v == GIDSignIn.sharedInstance().currentUser.profile.email
+                }) {
+                    accessoryType = .checkmark
+                } else {
+                    accessoryType = .none
+                }
             }
             
             titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)

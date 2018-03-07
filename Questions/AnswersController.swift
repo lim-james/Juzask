@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class AnswersController: UITableViewController, UITextViewDelegate {
 
@@ -26,7 +27,7 @@ class AnswersController: UITableViewController, UITextViewDelegate {
         
         titleLabel.text = question.title
         
-        adminLabel.text = question.admin
+        adminLabel.text = "by: " + question.admin
         adminLabel.font = UIFont.italicSystemFont(ofSize: adminLabel.font.pointSize)
         
         if question.answer.isEmpty {
@@ -40,10 +41,27 @@ class AnswersController: UITableViewController, UITextViewDelegate {
         answerView.font = UIFont.boldSystemFont(ofSize: (answerView.font?.pointSize)!)
         answerView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         answerView.isScrollEnabled = false
+        if GIDSignIn.sharedInstance().currentUser != nil {
+            answerView.isEditable = question.room.adminEmail == GIDSignIn.sharedInstance().currentUser.profile.email
+        } else {
+            answerView.isEditable = false
+        }
         
         if !source.isEmpty {
             let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneAction))
             navigationItem.rightBarButtonItem = button
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.toggleKeyboard))
+        tap.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tap)
+    }
+    
+    @objc func toggleKeyboard() {
+        if answerView.isFirstResponder {
+            answerView.resignFirstResponder()
+        } else {
+            answerView.becomeFirstResponder()
         }
     }
     
@@ -86,6 +104,8 @@ class AnswersController: UITableViewController, UITextViewDelegate {
         case 2:
             answerView.sizeToFit()
             return answerView.frame.height + 22
+        case 1:
+            return UITableViewAutomaticDimension
         default:
             return source == "question" ? 0 : UITableViewAutomaticDimension
         }
