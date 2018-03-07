@@ -56,11 +56,13 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     
     func sort() {
         questions.sort(by: { (q1, q2) -> Bool in
-            if !q1.isAnswered { return true }
+            if q1.isAnswered { return false }
+            if q2.isAnswered { return true }
             return q1.supporters.count > q2.supporters.count
         })
         searchedQuestions.sort { (q1, q2) -> Bool in
-            if !q1.isAnswered { return true }
+            if q1.isAnswered { return false }
+            if q2.isAnswered { return true }
             return q1.supporters.count > q2.supporters.count
         }
     }
