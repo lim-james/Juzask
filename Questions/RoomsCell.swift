@@ -20,9 +20,13 @@ class RoomsCell: UITableViewCell {
             adminLabel.text = room.admin
             codeLabel.text = room.code
             
-            titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
             codeLabel.textColor = .green
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
     }
 
 }

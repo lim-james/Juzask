@@ -31,8 +31,6 @@ class QuestionsCell: UITableViewCell {
                 }
             }
             
-            titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
-            
             if question.isAnswered {
                 accessoryType = .disclosureIndicator
                 backgroundColor = .green
@@ -53,6 +51,7 @@ class QuestionsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
     }
     
 }
