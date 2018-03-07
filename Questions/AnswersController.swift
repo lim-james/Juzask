@@ -89,14 +89,17 @@ class AnswersController: UITableViewController, UITextViewDelegate {
     
     @objc func doneAction() {
         answerView.resignFirstResponder()
-        if answerView.text.exist() && answerView.textColor != .lightGray {
-            if source == "question" {
+        if source == "question" {
+            if answerView.text.exist() && answerView.textColor != .lightGray {
                 question.title = answerView.text.chopped()
                 question.create()
-                performSegue(withIdentifier: "unwindToQuestions", sender: self)
-            } else if source == "answer" {
+            }
+            performSegue(withIdentifier: "unwindToQuestions", sender: self)
+        } else if source == "answer" {
+            if answerView.text.exist() && answerView.textColor != .lightGray {
                 ref.child(question.room.code).child(question.childId).child("answer").setValue(answerView.text.chopped())
             }
+            performSegue(withIdentifier: "unwindToQuestions", sender: self)
         }
     }
     
