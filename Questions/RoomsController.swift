@@ -50,9 +50,9 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             roomCodes = ids as! [String]
         }
         ref.child("Rooms").observe(.value, with: { snap in
-            for id in self.roomCodes {
-                if snap.hasChild(id) {
-                    self.ref.child("Rooms").child(id).observe(.value) { snapshot in
+            for code in self.roomCodes {
+                if snap.hasChild(code) {
+                    self.ref.child("Rooms").child(code).observe(.value) { snapshot in
                         let dict = snapshot.value as! [String: String]
                         let room = Room(from: dict)
                         if !self.rooms.contains(where: { (r) -> Bool in
@@ -64,9 +64,9 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
                     }
                 } else {
                     if !self.rooms.contains(where: { (r) -> Bool in
-                        return r.code == id
+                        return r.code == code
                     }) {
-                        self.rooms.append(Room(title: "Room does not exist", admin: "Swipe right to delete", code: id))
+                        self.rooms.append(Room(title: "Room does not exist", admin: "Swipe right to delete", adminEmail: "", code: code))
                         self.reload()
                     }
                 }
@@ -124,7 +124,8 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
                 let field = alertController.textFields![0]
                 if !(field.text?.isEmpty)! {
-                    let room = Room(title: field.text!, admin: GIDSignIn.sharedInstance().currentUser.profile.name)
+                    let profile = GIDSignIn.sharedInstance().currentUser.profile
+                    let room = Room(title: field.text!, admin: (profile?.name)!, adminEmail: (profile?.email)!)
                     self.roomCodes.append(room.code)
                     UserDefaults.standard.set(self.roomCodes, forKey: "Room Codes")
                     room.create()
@@ -168,11 +169,12 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let room = rooms[indexPath.row]
-            roomCodes.remove(at: roomCodes.index(of: room.code)!)
+            let room = searching ? searchedRooms[indexPath.row] : rooms[indexPath.row]
+            let index = roomCodes.index(of: room.code)!
+            roomCodes.remove(at: index)
             UserDefaults.standard.set(roomCodes, forKey: "Room Codes")
-            UserDefaults.standard.synchronize()
-            rooms.remove(at: indexPath.row)
+            rooms.remove(at: index)
+            if searching { searchedRooms.remove(at: indexPath.row) }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -192,7 +194,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         let joinButton = UIButton()
         
         joinButton.setTitle("Join room", for: .normal)
-        joinButton.backgroundColor = view.tintColor
+        joinButton.backgroundColor = .green
         joinButton.addTarget(self, action: #selector(self.joinAction), for: .touchUpInside)
         
         return joinButton

@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        window?.tintColor = UIColor(red: 46/255, green: 204/255, blue: 113/255, alpha: 1)
+        window?.tintColor = .green
+        window?.backgroundColor = .white
         
         FirebaseApp.configure()
         
@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 // user is not logged in
             }
         }
+        
         return true
     }
     

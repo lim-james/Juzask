@@ -10,25 +10,29 @@ import UIKit
 import Firebase
 
 class Room {
-    var title: String = ""
-    var admin: String = ""
+    var title: String
+    var admin: String
+    var adminEmail: String
     var code: String = ""
     
-    init(title: String, admin: String) {
+    init(title: String, admin: String, adminEmail: String) {
         self.title = title
         self.admin = admin
+        self.adminEmail = adminEmail
         self.code = getCode()
     }
     
-    init(title: String, admin: String, code: String) {
+    init(title: String, admin: String, adminEmail: String, code: String) {
         self.title = title
         self.admin = admin
+        self.adminEmail = adminEmail
         self.code = code
     }
     
     init(from dict: [String: String]) {
         self.title = dict["title"]!
         self.admin = dict["admin"]!
+        self.adminEmail = dict["adminEmail"]!
         self.code = dict["code"]!
     }
     
@@ -37,6 +41,7 @@ class Room {
         let value = [
             "title": title,
             "admin": admin,
+            "adminEmail": adminEmail,
             "code": code
         ]
         ref.child("Rooms").child(code).setValue(value)

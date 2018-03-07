@@ -21,6 +21,7 @@ class RoomsCell: UITableViewCell {
             codeLabel.text = room.code
             
             titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
+            codeLabel.textColor = .green
         }
     }
 
