@@ -24,6 +24,8 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    var source: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -44,10 +46,12 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     
     func sort() {
         questions.sort(by: { (q1, q2) -> Bool in
-            return !q1.isAnswered || q1.supporters.count > q2.supporters.count
+            if !q1.isAnswered { return true }
+            return q1.supporters.count > q2.supporters.count
         })
         searchedQuestions.sort { (q1, q2) -> Bool in
-            return !q1.isAnswered || q1.supporters.count > q2.supporters.count
+            if !q1.isAnswered { return true }
+            return q1.supporters.count > q2.supporters.count
         }
     }
     
@@ -88,40 +92,20 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         if searching { searchController.isActive = false }
         DispatchQueue.main.async {
             if GIDSignIn.sharedInstance().currentUser != nil {
-                let alertController = UIAlertController(title: "Enter question", message: nil, preferredStyle: .alert)
-                
-                let confirmAction = UIAlertAction(title: "Ask", style: .default) { (_) in
-                    let field = alertController.textFields![0]
-                    if !(field.text?.isEmpty)! {
-                        let profile = GIDSignIn.sharedInstance().currentUser.profile
-                        Question(room: self.room, title: field.text!, admin: (profile?.name)!, adminEmail: (profile?.email)!).create()
-                    }
-                }
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                
-                alertController.addTextField { textField in
-                    textField.textAlignment = .center
-                    textField.returnKeyType = .done
-                    textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-                }
-                
-                alertController.addAction(confirmAction)
-                alertController.addAction(cancelAction)
-                
-                self.present(alertController, animated: true, completion: nil)
+                self.source = "question"
+                self.performSegue(withIdentifier: "showAnswer", sender: self)
             } else {
                 let alertController = UIAlertController(title: "Log in to continue", message: nil, preferredStyle: .alert)
-                
+
                 let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in
                     GIDSignIn.sharedInstance().signIn()
                 }
-                
+
                 let cancelAction = UIAlertAction(title: "Nope", style: .cancel, handler: nil)
-                
+
                 alertController.addAction(confirmAction)
                 alertController.addAction(cancelAction)
-                
+
                 self.present(alertController, animated: true, completion: nil)
             }
         }
@@ -130,48 +114,36 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
         let qRef = ref.child(room.code).child(question.childId)
-        if question.isAnswered {
-            performSegue(withIdentifier: "showAnswer", sender: self)
-        } else {
+        source = ""
+        if GIDSignIn.sharedInstance().currentUser != nil {
             let email = GIDSignIn.sharedInstance().currentUser.profile.email
-            if question.adminEmail == email {
-                let alertController = UIAlertController(title: question.title, message: nil, preferredStyle: .alert)
-                
-                let confirmAction = UIAlertAction(title: "Answer", style: .default) { (_) in
-                    let field = alertController.textFields![0]
-                    if !(field.text?.isEmpty)! {
-                        qRef.child("answer").setValue(field.text)
-                    }
-                }
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                
-                alertController.addTextField { textField in
-                    textField.placeholder = "Your answer"
-                    textField.textAlignment = .center
-                    textField.returnKeyType = .done
-                    textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-                }
-                
-                alertController.addAction(confirmAction)
-                alertController.addAction(cancelAction)
-                
-                self.present(alertController, animated: true, completion: nil)
+            if room.adminEmail == email {
+                source = "answer"
+                performSegue(withIdentifier: "showAnswer", sender: self)
             } else {
-                var key = ""
-                if question.supporters.contains(where: { (k, v) -> Bool in
-                    if v == email {
-                        key = k
-                        return true
-                    }
-                    return false
-                })  {
-                    qRef.child("supporters").child(key).removeValue()
+                if question.isAnswered {
+                    performSegue(withIdentifier: "showAnswer", sender: self)
                 } else {
-                    qRef.child("supporters").childByAutoId().setValue(email)
+                    var key = ""
+                    if question.supporters.contains(where: { (k, v) -> Bool in
+                        if v == email {
+                            key = k
+                            return true
+                        }
+                        return false
+                    })  {
+                        qRef.child("supporters").child(key).removeValue()
+                    } else {
+                        qRef.child("supporters").childByAutoId().setValue(email)
+                    }
                 }
             }
+        } else {
+            if question.isAnswered {
+                performSegue(withIdentifier: "showAnswer", sender: self)
+            }
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -182,10 +154,13 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        let email = GIDSignIn.sharedInstance().currentUser.profile.email
-        if room.adminEmail == email { return .delete }
-        let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
-        return question.adminEmail == email ? .delete : .none
+        if GIDSignIn.sharedInstance().currentUser != nil {
+            let email = GIDSignIn.sharedInstance().currentUser.profile.email
+            if room.adminEmail == email { return .delete }
+            let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
+            return question.adminEmail == email ? .delete : .none
+        }
+        return .none
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -221,11 +196,19 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAnswer" {
             let destination = segue.destination as! AnswersController
-            let indexPath = tableView.indexPathForSelectedRow!
-            let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
-            destination.title = "Answer"
-            destination.question = question
+            destination.title = source.isEmpty ? "Answer" : source.capitalized
+            destination.source = source
+            if source == "question" {
+                let profile = GIDSignIn.sharedInstance().currentUser.profile
+                destination.question = Question(room: room, title: "", admin: (profile?.name)!, adminEmail: (profile?.email)!)
+            } else {
+                let indexPath = tableView.indexPathForSelectedRow!
+                let question = searching ? searchedQuestions[indexPath.row] : questions[indexPath.row]
+                destination.question = question
+            }
         }
     }
+    
+    @IBAction func unwindToQuestions(_ sender: UIStoryboardSegue) {}
     
 }

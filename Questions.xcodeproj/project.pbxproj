@@ -14,6 +14,7 @@
 		747742A7204E996A0079A546 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747742A6204E996A0079A546 /* StringExtension.swift */; };
 		74975E0C204F7DAD00A05CA4 /* AnswersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74975E0B204F7DAD00A05CA4 /* AnswersController.swift */; };
 		74975E0E204F8B3000A05CA4 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74975E0D204F8B3000A05CA4 /* UIColorExtension.swift */; };
+		74975E10204F8DCA00A05CA4 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74975E0F204F8DCA00A05CA4 /* NavigationController.swift */; };
 		74C18ED5204A449800362809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED4204A449800362809 /* AppDelegate.swift */; };
 		74C18ED7204A449800362809 /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C18ED6204A449800362809 /* RoomsController.swift */; };
 		74C18EDA204A449800362809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C18ED8204A449800362809 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		747742A6204E996A0079A546 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		74975E0B204F7DAD00A05CA4 /* AnswersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersController.swift; sourceTree = "<group>"; };
 		74975E0D204F8B3000A05CA4 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		74975E0F204F8DCA00A05CA4 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		74C18ED1204A449800362809 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C18ED4204A449800362809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C18ED6204A449800362809 /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				74C18ED4204A449800362809 /* AppDelegate.swift */,
 				74975E0D204F8B3000A05CA4 /* UIColorExtension.swift */,
 				747742A6204E996A0079A546 /* StringExtension.swift */,
+				74975E0F204F8DCA00A05CA4 /* NavigationController.swift */,
 				74C18EE8204A484F00362809 /* Room.swift */,
 				74C18EE6204A47EF00362809 /* RoomsCell.swift */,
 				74C18ED6204A449800362809 /* RoomsController.swift */,
@@ -258,6 +261,7 @@
 			files = (
 				74C18EE9204A484F00362809 /* Room.swift in Sources */,
 				74C18EE7204A47EF00362809 /* RoomsCell.swift in Sources */,
+				74975E10204F8DCA00A05CA4 /* NavigationController.swift in Sources */,
 				74C18ED7204A449800362809 /* RoomsController.swift in Sources */,
 				7409FF88204E629300A0B91C /* QuestionsCell.swift in Sources */,
 				747742A7204E996A0079A546 /* StringExtension.swift in Sources */,
@@ -404,7 +408,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				DEVELOPMENT_TEAM = 8P422Q4556;
 				INFOPLIST_FILE = Questions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -421,7 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7K6ZTDFM48;
+				DEVELOPMENT_TEAM = 8P422Q4556;
 				INFOPLIST_FILE = Questions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
