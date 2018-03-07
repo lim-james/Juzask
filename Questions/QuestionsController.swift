@@ -41,7 +41,7 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         askButton.setTitleColor(.white, for: .normal)
         askButton.backgroundColor = .green
         askButton.sizeToFit()
-        askButton.frame.size.width += 16
+        askButton.frame.size.width += 32
         askButton.layer.cornerRadius = 8
         askButton.clipsToBounds = true
         askButton.addTarget(self, action: #selector(self.askAction), for: .touchUpInside)
