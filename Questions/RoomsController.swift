@@ -51,6 +51,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         if let ids = UserDefaults.standard.array(forKey: "Room Codes") {
             roomCodes = ids as! [String]
         }
+        
         ref.child("Rooms").observe(.value, with: { snap in
             for code in self.roomCodes {
                 if snap.hasChild(code) {
@@ -111,59 +112,104 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     @objc func joinAction() {
         if searching { searchController.isActive = false }
         DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Enter ID", message: nil, preferredStyle: .alert)
+            self.displayJoinAlert()
+        }
+    }
+    
+    func displayError(message: String, call: Int) {
+        let alertController = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .cancel) { (action) in
+            switch call {
+            case 0: self.displayCreateAlert()
+            case 1: self.displayJoinAlert()
+            default: return
+            }
+        }
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func displayCreateAlert() {
+        let alertController = UIAlertController(title: "Enter room title", message: nil, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
+            let field = alertController.textFields![0]
+            self.checkCreate(title: field.text!)
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addTextField { textField in
+            textField.textAlignment = .center
+            textField.returnKeyType = .done
+            textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        }
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: false, completion: nil)
+    }
+    
+    func checkCreate(title: String) {
+        if title.exist() {
             
-            let confirmAction = UIAlertAction(title: "Join", style: .default) { (_) in
-                let field = alertController.textFields![0]
-                if !self.roomCodes.contains(field.text!) && (field.text?.exist())! {
-                    self.roomCodes.append(field.text!)
+            let profile = GIDSignIn.sharedInstance().currentUser.profile
+            let room = Room(title: title.chopped(), admin: (profile?.name)!, adminEmail: (profile?.email)!)
+            roomCodes.append(room.code)
+            update()
+            room.create()
+        } else {
+            displayError(message: "Missing title", call: 0)
+        }
+    }
+    
+    func displayJoinAlert() {
+        let alertController = UIAlertController(title: "Enter code", message: nil, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Join", style: .default) { (_) in
+            let field = alertController.textFields![0]
+            self.checkJoin(code: field.text!)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addTextField { textField in
+            textField.textAlignment = .center
+            textField.returnKeyType = .done
+            textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize * 2)
+        }
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func checkJoin(code: String) {
+        if roomCodes.contains(code) {
+            displayError(message: "Group already added", call: 1)
+            return
+        }
+        if code.exist() {
+            ref.child("Rooms").observeSingleEvent(of: .value) { snapshot in
+                if snapshot.hasChild(code) {
+                    self.roomCodes.append(code)
                     self.update()
                     self.populate()
+                } else {
+                    self.displayError(message: "Group does not exist", call: 1)
                 }
             }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alertController.addTextField { textField in
-                textField.textAlignment = .center
-                textField.returnKeyType = .done
-                textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-            }
-            
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            
-            self.present(alertController, animated: true, completion: nil)
+        } else {
+            displayError(message: "Missing code", call: 1)
         }
     }
     
     @IBAction func addRoomAction(_ sender: Any) {
         if GIDSignIn.sharedInstance().currentUser != nil {
-            let alertController = UIAlertController(title: "Enter room title", message: nil, preferredStyle: .alert)
-            
-            let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
-                let field = alertController.textFields![0]
-                if (field.text?.exist())! {
-                    let profile = GIDSignIn.sharedInstance().currentUser.profile
-                    let room = Room(title: field.text!.chopped(), admin: (profile?.name)!, adminEmail: (profile?.email)!)
-                    self.roomCodes.append(room.code)
-                    self.update()
-                    room.create()
-                }
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alertController.addTextField { textField in
-                textField.textAlignment = .center
-                textField.returnKeyType = .done
-                textField.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-            }
-            
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            
-            self.present(alertController, animated: true, completion: nil)
+            displayCreateAlert()
         } else {
             let alertController = UIAlertController(title: "Log in to continue", message: nil, preferredStyle: .alert)
             
