@@ -35,8 +35,21 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         populate()
         
         title = room.title
-        let label = UIBarButtonItem(title: room.code, style: .plain, target: self, action: #selector(self.copyCode(_:)))
-        navigationItem.rightBarButtonItem = label
+        
+        let askButton = UIButton()
+        askButton.setTitle("Ask", for: .normal)
+        askButton.setTitleColor(.white, for: .normal)
+        askButton.backgroundColor = .green
+        askButton.sizeToFit()
+        askButton.frame.size.width += 16
+        askButton.layer.cornerRadius = 8
+        askButton.clipsToBounds = true
+        askButton.addTarget(self, action: #selector(self.askAction), for: .touchUpInside)
+        
+        let ask = UIBarButtonItem(customView: askButton)
+        let code = UIBarButtonItem(title: room.code, style: .plain, target: self, action: #selector(self.copyCode(_:)))
+        
+        navigationItem.rightBarButtonItems = [ask, code]
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -181,20 +194,6 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
             return question.adminEmail == email ? .delete : .none
         }
         return .none
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let askButton = UIButton()
-        
-        askButton.setTitle("Ask question", for: .normal)
-        askButton.backgroundColor = .green
-        askButton.addTarget(self, action: #selector(self.askAction), for: .touchUpInside)
-        
-        return askButton
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
