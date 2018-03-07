@@ -35,7 +35,7 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         populate()
         
         title = room.title
-        navigationItem.prompt = room.admin
+//        navigationItem.prompt = room.admin
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false

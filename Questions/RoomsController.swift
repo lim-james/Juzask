@@ -87,6 +87,10 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     }
     
     func updateSearchResults(for searchController: UISearchController) {
+        if tableView.isEditing {
+            editButton.title = "Edit"
+            tableView.setEditing(false, animated: true)
+        }
         let text = searchController.searchBar.text!
         searchedRooms = rooms.filter { (room) -> Bool in
             return room.title.contains(text) || room.admin.contains(text) || room.code.contains(text)
@@ -113,7 +117,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
                 let field = alertController.textFields![0]
                 if !self.roomCodes.contains(field.text!) && !(field.text?.isEmpty)! {
                     self.roomCodes.append(field.text!)
-                    UserDefaults.standard.set(self.roomCodes, forKey: "Room Codes")
+                    self.update()
                     self.populate()
                 }
             }
@@ -143,7 +147,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
                     let profile = GIDSignIn.sharedInstance().currentUser.profile
                     let room = Room(title: field.text!, admin: (profile?.name)!, adminEmail: (profile?.email)!)
                     self.roomCodes.append(room.code)
-                    UserDefaults.standard.set(self.roomCodes, forKey: "Room Codes")
+                    self.update()
                     room.create()
                 }
             }
@@ -200,9 +204,14 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObject = rooms[sourceIndexPath.row]
+        let movedRoom = rooms[sourceIndexPath.row]
         rooms.remove(at: sourceIndexPath.row)
-        rooms.insert(movedObject, at: destinationIndexPath.row)
+        rooms.insert(movedRoom, at: destinationIndexPath.row)
+        
+        let movedCode = roomCodes[sourceIndexPath.row]
+        roomCodes.remove(at: sourceIndexPath.row)
+        roomCodes.insert(movedCode, at: destinationIndexPath.row)
+        
         update()
     }
     
