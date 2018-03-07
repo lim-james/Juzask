@@ -52,7 +52,7 @@ class Room {
         var list: [String] = []
         for i in items { list.append(String(i)) }
         var str = ""
-        for _ in 0...3 {
+        for _ in 0...4 {
             str = str + list[Int(arc4random_uniform(UInt32(list.count)))]
         }
         return str

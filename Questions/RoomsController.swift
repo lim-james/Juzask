@@ -115,7 +115,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             
             let confirmAction = UIAlertAction(title: "Join", style: .default) { (_) in
                 let field = alertController.textFields![0]
-                if !self.roomCodes.contains(field.text!) && !(field.text?.isEmpty)! {
+                if !self.roomCodes.contains(field.text!) && (field.text?.exist())! {
                     self.roomCodes.append(field.text!)
                     self.update()
                     self.populate()
@@ -143,9 +143,9 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             
             let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
                 let field = alertController.textFields![0]
-                if !(field.text?.isEmpty)! {
+                if (field.text?.exist())! {
                     let profile = GIDSignIn.sharedInstance().currentUser.profile
-                    let room = Room(title: field.text!, admin: (profile?.name)!, adminEmail: (profile?.email)!)
+                    let room = Room(title: field.text!.chopped(), admin: (profile?.name)!, adminEmail: (profile?.email)!)
                     self.roomCodes.append(room.code)
                     self.update()
                     room.create()

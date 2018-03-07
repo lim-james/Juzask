@@ -13,4 +13,12 @@ extension String {
     func contains(_ substring: String) -> Bool {
         return self.range(of: substring) != nil
     }
+    
+    func chopped() -> String {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
+    func exist() -> Bool {
+        return !chopped().split(separator: " ").isEmpty
+    }
 }

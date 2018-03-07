@@ -35,13 +35,23 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         populate()
         
         title = room.title
-//        navigationItem.prompt = room.admin
+        let label = UIBarButtonItem(title: room.code, style: .plain, target: self, action: #selector(self.copyCode(_:)))
+        navigationItem.rightBarButtonItem = label
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         }
+    }
+    
+    @objc func copyCode(_ sender: UIBarButtonItem) {
+        UIPasteboard.general.string = room.code
+        sender.title = "Copied!"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            sender.title = self.room.code
+        }
+        
     }
     
     func sort() {
