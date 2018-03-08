@@ -35,7 +35,7 @@ class AnswersController: UITableViewController, UITextViewDelegate {
             answerView.textColor = .lightGray
         } else {
             answerView.text = question.answer
-            answerView.textColor = .green
+            answerView.textColor = .blue
         }
         answerView.delegate = self
         answerView.font = UIFont.boldSystemFont(ofSize: (answerView.font?.pointSize)!)
@@ -43,7 +43,11 @@ class AnswersController: UITableViewController, UITextViewDelegate {
         answerView.textContainer.lineFragmentPadding = 0
         answerView.isScrollEnabled = false
         if GIDSignIn.sharedInstance().currentUser != nil {
-            answerView.isEditable = question.room.adminEmail == GIDSignIn.sharedInstance().currentUser.profile.email
+            if question.isAnswered {
+                answerView.isEditable = question.room.adminEmail == GIDSignIn.sharedInstance().currentUser.profile.email
+            } else {
+                answerView.isEditable = source == "question" || question.room.adminEmail == GIDSignIn.sharedInstance().currentUser.profile.email
+            }
         } else {
             answerView.isEditable = false
         }
@@ -68,7 +72,7 @@ class AnswersController: UITableViewController, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .lightGray {
-            textView.textColor = source == "question" ? .black : .green
+            textView.textColor = source == "question" ? .black : .blue
             textView.text = ""
         }
     }
@@ -83,7 +87,7 @@ class AnswersController: UITableViewController, UITextViewDelegate {
             answerView.text = "Your " + source
             answerView.textColor = .lightGray
         } else {
-            answerView.textColor = source == "question" ? .black : .green
+            answerView.textColor = source == "question" ? .black : .blue
         }
     }
     

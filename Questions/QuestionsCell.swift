@@ -33,7 +33,7 @@ class QuestionsCell: UITableViewCell {
             
             if question.isAnswered {
                 accessoryType = .disclosureIndicator
-                backgroundColor = .green
+                backgroundColor = .blue
                 titleLabel.textColor = .white
                 adminLabel.textColor = .white
                 supportersLabel.textColor = .white

@@ -20,7 +20,7 @@ class RoomsCell: UITableViewCell {
             adminLabel.text = room.admin
             codeLabel.text = room.code
             
-            codeLabel.textColor = .green
+            codeLabel.textColor = .blue
         }
     }
     

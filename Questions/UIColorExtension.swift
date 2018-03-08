@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    static var green: UIColor! {
-        return UIColor(red: 46/255, green: 204/255, blue: 113/255, alpha: 1)
+    static var blue: UIColor! {
+        return UIColor(red: 2/255, green: 5/255, blue: 248/255, alpha: 1)
     }
 }

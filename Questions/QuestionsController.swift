@@ -37,9 +37,10 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         title = room.title
         
         let askButton = UIButton()
-        askButton.setTitle("Ask", for: .normal)
+        askButton.setTitle("ASK", for: .normal)
         askButton.setTitleColor(.white, for: .normal)
-        askButton.backgroundColor = .green
+        askButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)
+        askButton.backgroundColor = .blue
         askButton.sizeToFit()
         askButton.frame.size.width += 32
         askButton.layer.cornerRadius = 8
@@ -47,7 +48,7 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         askButton.addTarget(self, action: #selector(self.askAction), for: .touchUpInside)
         
         let ask = UIBarButtonItem(customView: askButton)
-        let code = UIBarButtonItem(title: room.code, style: .plain, target: self, action: #selector(self.copyCode(_:)))
+        let code = UIBarButtonItem(title: room.code, style: .done, target: self, action: #selector(self.copyCode(_:)))
         
         navigationItem.rightBarButtonItems = [ask, code]
         
@@ -141,7 +142,7 @@ class QuestionsController: UITableViewController, UISearchResultsUpdating, GIDSi
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize * 2)
         label.textAlignment = .center
-        label.textColor = .green
+        label.textColor = .blue
         label.text = "No questions\nasked yet."
         return label
     }

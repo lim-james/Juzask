@@ -44,12 +44,12 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         joinButton.setTitle("Join room", for: .normal)
         joinButton.frame = (navigationController?.toolbar.bounds)!
         joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)
-        joinButton.backgroundColor = .green
+        joinButton.backgroundColor = .blue
         joinButton.addTarget(self, action: #selector(self.joinAction), for: .touchUpInside)
         
         let joinBarButton = UIBarButtonItem(customView: joinButton)
         
-        navigationController?.toolbar.barTintColor = .green
+        navigationController?.toolbar.barTintColor = .blue
         navigationController?.toolbar.isTranslucent = false
         toolbarItems = [joinBarButton]
         
@@ -291,7 +291,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize * 2)
         label.textAlignment = .center
-        label.textColor = .green
+        label.textColor = .blue
         label.text = "No rooms."
         return label
     }
