@@ -49,7 +49,6 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         
         let joinBarButton = UIBarButtonItem(customView: joinButton)
         
-        navigationController?.isToolbarHidden = false
         navigationController?.toolbar.barTintColor = .green
         navigationController?.toolbar.isTranslucent = false
         toolbarItems = [joinBarButton]
@@ -59,6 +58,11 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: true)
     }
     
     func populate() {
@@ -244,6 +248,7 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         if segue.identifier == "showQuestions" {
             let destination = segue.destination as! QuestionsController
             destination.room = rooms[(tableView.indexPathForSelectedRow?.row)!]
+            navigationController?.setToolbarHidden(true, animated: true)
         }
     }
     

@@ -27,6 +27,7 @@ class RoomsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
+        codeLabel.font = UIFont.boldSystemFont(ofSize: codeLabel.font.pointSize)
     }
 
 }
