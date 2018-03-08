@@ -40,6 +40,20 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         
+        let joinButton = UIButton()
+        joinButton.setTitle("Join room", for: .normal)
+        joinButton.frame = (navigationController?.toolbar.bounds)!
+        joinButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.buttonFontSize)
+        joinButton.backgroundColor = .green
+        joinButton.addTarget(self, action: #selector(self.joinAction), for: .touchUpInside)
+        
+        let joinBarButton = UIBarButtonItem(customView: joinButton)
+        
+        navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.barTintColor = .green
+        navigationController?.toolbar.isTranslucent = false
+        toolbarItems = [joinBarButton]
+        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         if #available(iOS 11.0, *) {
@@ -269,20 +283,6 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let joinButton = UIButton()
-        
-        joinButton.setTitle("Join room", for: .normal)
-        joinButton.backgroundColor = .green
-        joinButton.addTarget(self, action: #selector(self.joinAction), for: .touchUpInside)
-        
-        return joinButton
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize * 2)
         label.textAlignment = .center
@@ -291,8 +291,8 @@ class RoomsController: UITableViewController, UISearchResultsUpdating, GIDSignIn
         return label
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return rooms.count == 0 ? view.frame.height - 44 : 0
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return rooms.count == 0 ? view.frame.height : 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
